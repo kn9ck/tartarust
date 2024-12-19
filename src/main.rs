@@ -18,7 +18,11 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("no crash!");
-    loop {}
+    loop {
+        use tartarust::print;
+        for _ in 0..10000 {}
+        print!("-")
+    }
 }
 
 //called on panic
