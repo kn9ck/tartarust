@@ -18,11 +18,7 @@ pub extern "C" fn _start() -> ! {
     test_main();
 
     println!("no crash!");
-    loop {
-        use tartarust::print;
-        for _ in 0..10000 {}
-        print!("-")
-    }
+    tartarust::hlt_loop();
 }
 
 //called on panic
@@ -30,7 +26,7 @@ pub extern "C" fn _start() -> ! {
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {
     println!("{}", info);
-    loop {}
+    tartarust::hlt_loop();
 }
 
 #[cfg(test)]
