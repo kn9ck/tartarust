@@ -6,10 +6,11 @@
 
 use core::panic::PanicInfo;
 use tartarust::println;
+use bootloader::{BootInfo, entry_point};
 
-//new entry point
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
+entry_point!(kernel_main);
+
+fn kernel_main(boot_info: &'static BootInfo) -> ! {
     println!("Hello World{}", "!");
 
     tartarust::init();
@@ -21,7 +22,7 @@ pub extern "C" fn _start() -> ! {
         "Level 4 page table at: {:?}",
         level_4_page_table.start_address()
     );
-
+    
     #[cfg(test)]
     test_main();
 
