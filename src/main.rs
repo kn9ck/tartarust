@@ -7,7 +7,6 @@
 use bootloader::{entry_point, BootInfo};
 use core::panic::PanicInfo;
 use tartarust::println;
-use x86_64::structures::paging::PageTable;
 
 entry_point!(kernel_main);
 
@@ -22,9 +21,12 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     let l4_table = unsafe { active_level_4_table(phys_mem_offset) };
 
     for (i, entry) in l4_table.iter().enumerate() {
+        use x86_64::structures::paging::PageTable;
+
         if !entry.is_unused() {
             println!("L4 Entry {}: {:?}", i, entry);
 
+            // get physical address from entry and convert it
             let phys = entry.frame().unwrap().start_address();
             let virt = phys.as_u64() + boot_info.physical_memory_offset;
             let ptr = VirtAddr::new(virt).as_mut_ptr();
