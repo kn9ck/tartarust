@@ -28,6 +28,9 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     allocator::init_heap(&mut mapper, &mut frame_allocator).expect("heap init failed");
 
+    let heap_value = Box::new(9);
+    println!("heap_value at {:p}", heap_value);
+
     //test dynamic allocation
     let mut vec = Vec::new();
     for i in 0..500 {
