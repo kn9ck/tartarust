@@ -24,7 +24,6 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
 
     //map page
     let page = Page::containing_address(VirtAddr::new(14000000));
-    memory::create_example_mapping(page, &mut mapper, &mut frame_allocator);
 
     //write string to buffer with new mapping
     let page_ptr: *mut u64 = page.start_address().as_mut_ptr();
