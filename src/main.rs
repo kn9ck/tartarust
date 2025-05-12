@@ -17,7 +17,7 @@ fn kernel_main(boot_info: &'static BootInfo) -> ! {
     use tartarust::allocator;
     use tartarust::memory;
     use tartarust::memory::BootInfoFrameAllocator;
-    use x86_64::{structures::paging::Page, VirtAddr};
+    use x86_64::VirtAddr;
 
     println!("Hello World{}", "!");
     tartarust::init();
